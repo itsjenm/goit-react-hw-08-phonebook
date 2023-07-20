@@ -16,13 +16,16 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   // create a function to handle the form submission and dispatch our operator
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // to call operator, after the user logs in, they should be navigated to main page
-    dispatch(signUpUser(formData)).then(() => {
-      // if logged in is success, then continue
-      nav('/');
-    })
+    try {
+      await dispatch(signUpUser(formData)).then(() => {
+        nav('/')
+      })
+    } catch (error) {
+      console.error('Error occurred during sign up: ', error)
+    }
   }
   return (
     <div className={styled.signup_container}>

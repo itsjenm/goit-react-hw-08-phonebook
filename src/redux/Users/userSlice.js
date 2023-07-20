@@ -2,15 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { logOutUser, signUpUser } from './operators';
 
 const initialState = {
-  user: { name: null, email: null },
+  auth: { name: null, email: null },
   token: null,
   isLoggedIn: false,
 };
 
 
 
-const userSlice = createSlice({
-    name: 'user',
+const authSlice = createSlice({
+    name: 'auth',
     initialState,
     reducers: {},
     extraReducers: builder => {
@@ -27,4 +27,4 @@ const userSlice = createSlice({
     }
 });
 
-export default userSlice.reducer;
+export default authSlice.reducer;

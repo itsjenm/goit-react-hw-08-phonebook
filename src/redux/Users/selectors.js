@@ -1,2 +1,2 @@
-export const isLoggedIn = state => state.user.isLoggedIn;
-export const getToken = state => state.user.token;
+export const isLoggedIn = state => state.auth.isLoggedIn;
+export const getToken = state => state.auth.token;

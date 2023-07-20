@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts, postContacts } from 'redux/Contacts/operators';
+import { useAddContactMutation, useGetContactsQuery } from 'redux/Contacts/contactsApi';
 import { getContacts } from 'redux/Contacts/selectors';
 
 // form that handles adding contacts to  the phonebook
@@ -15,6 +15,11 @@ const Form = () => {
 
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
+
+  // 2. Replace the fetchContacts action with the useGetContactsQuery hook
+  const { data: fetchedContacts } = useGetContactsQuery();
+// Replace the postContacts action with the useAddContactMutation hook
+  const addContactMutation = useAddContactMutation();
 
   // function to handle form submission
   function handleSubmit(e) {
@@ -40,9 +45,17 @@ const Form = () => {
         return
     }
 
-    dispatch(postContacts(formData)).then(() => {
-      dispatch(fetchContacts());
+    // dispatch(postContacts(formData)).then(() => {
+    //   dispatch(fetchContacts());
+    // });
+    
+    addContactMutation.mutate(formData, {
+      onSuccess: () => {
+        // Refetch the contacts after adding a new contact
+        fetchedContacts.refetch();
+      },
     });
+
     setFormData({
       name: '',
       number: '',

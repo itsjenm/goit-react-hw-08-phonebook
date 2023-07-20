@@ -16,7 +16,7 @@ const token = {
 };
 
 
-export const signUpUser = createAsyncThunk('user/signup', async (data) => {
+export const signUpUser = createAsyncThunk('auth/signup', async (data) => {
     try {
         const response = await axios.post('/users/signup', data);
         token.set(response.data.token)
@@ -27,7 +27,7 @@ export const signUpUser = createAsyncThunk('user/signup', async (data) => {
     }
 });
 
-export const logOutUser = createAsyncThunk('user/logout', async () => {
+export const logOutUser = createAsyncThunk('auth/logout', async () => {
     try {
         await axios.post('/users/logout');
         token.unset();

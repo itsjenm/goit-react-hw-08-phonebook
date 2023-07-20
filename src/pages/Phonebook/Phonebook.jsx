@@ -6,24 +6,29 @@ import Form from 'components/Form/Form';
 import { changeFilter } from 'redux/Contacts/slice';
 import filterFunction from 'utils/filter';
 import { useEffect } from 'react';
-import { deleteContacts, fetchContacts } from 'redux/Contacts/operators';
+import { useGetContactsQuery, useDeleteContactMutation } from 'redux/Contacts/contactsApi';
+
 
 // page that shows up when user is logged In
 
 const Phonebook = () => {
   // grabs the contact items
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(getContacts) || [];
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
+  const { data, error, isLoading, refetch } = useGetContactsQuery();
+  const [deleteContact] = useDeleteContactMutation();
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  });
+    dispatch(data);
+  }, [dispatch]);
 
   function onDelete(id) {
-    dispatch(deleteContacts(id)).then(() => {
-        dispatch(fetchContacts());
-    });
+    dispatch(deleteContact(id)).unwrap().then(() => {
+        refetch();  // Refetch contacts after successful deletion
+    }).catch((error) => {
+      console.error('Error deleting contact: ', error);
+    })
   }
 
   const filteredContacts = filterFunction(contacts, filter);
