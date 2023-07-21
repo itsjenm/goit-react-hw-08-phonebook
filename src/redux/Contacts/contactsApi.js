@@ -5,7 +5,8 @@ export const contactsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
+      const token = getState();
+      console.log('Token:', token); // Check if the token is correctly retrieved
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
@@ -17,7 +18,7 @@ export const contactsApi = createApi({
     getContacts: buider.query({
       query: () => '/contacts',
       keepUnusedDataFor: 1,
-      providesTags: ['Contact'],
+      providesTags: ['Contacts'],
     }),
     addContact: buider.mutation({
       query: data => ({
@@ -25,16 +26,20 @@ export const contactsApi = createApi({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['Contact'],
+      invalidatesTags: ['Contacts'],
     }),
     deleteContact: buider.mutation({
       query: id => ({
         url: `/contacts/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Contact'],
+      invalidatesTags: ['Contacts'],
     }),
   }),
 });
 
-export const { useGetContactsQuery, useAddContactMutation, useDeleteContactMutation} = contactsApi;
+export const {
+  useGetContactsQuery,
+  useAddContactMutation,
+  useDeleteContactMutation,
+} = contactsApi;

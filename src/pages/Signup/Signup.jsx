@@ -20,9 +20,9 @@ const Signup = () => {
     e.preventDefault();
     // to call operator, after the user logs in, they should be navigated to main page
     try {
-      await dispatch(signUpUser(formData)).then(() => {
-        nav('/')
-      })
+      await dispatch(signUpUser(formData))
+      nav('/');
+    
     } catch (error) {
       console.error('Error occurred during sign up: ', error)
     }
@@ -37,6 +37,7 @@ const Signup = () => {
           onSubmit={handleSubmit}
         >
           <TextField
+          type='text'
             label="Full Name"
             name="name"
             required
@@ -44,6 +45,7 @@ const Signup = () => {
             onChange={(e) => setFormData({...formData, [e.target.name]: e.target.value })}
           />
           <TextField
+          type='email'
             sx={{ margin: '10px 0 10px 0' }}
             label="Email"
             name="email"

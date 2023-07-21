@@ -19,9 +19,10 @@ const Phonebook = () => {
   const { data, error, isLoading, refetch } = useGetContactsQuery();
   const [deleteContact] = useDeleteContactMutation();
 
+  // useGetContactsQuery hook will automatically handle fetching the contacts data and updating the store. The useEffect block becomes unnecessary for fetching the data, and you can directly use the deleteContact mutation from the useDeleteContactMutation hook to handle contact deletion.
   useEffect(() => {
-    dispatch(data);
-  }, [dispatch]);
+  
+  }, []);
 
   function onDelete(id) {
     dispatch(deleteContact(id)).unwrap().then(() => {
