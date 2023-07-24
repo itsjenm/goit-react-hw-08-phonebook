@@ -4,21 +4,22 @@ import { useState } from 'react';
 import styled from './Login.module.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, signUpUser } from 'redux/Users/operators';
+import { loginUser } from 'redux/Users/operators';
 import { useNavigate } from 'react-router-dom';
-import { getUser, isLoggedIn } from 'redux/Users/selectors';
+import { getUser } from 'redux/Users/selectors';
 
 const Login = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
-  const loggedIn = useSelector(isLoggedIn);
+  // const loggedIn = useSelector(isLoggedIn);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
-  const signedUp = useSelector(isLoggedIn);
+  // const signedUp = useSelector(isLoggedIn);
   const user = useSelector(getUser);
+  // eslint-disable-next-line
   const [loginError, setLoginError] = useState('');
 
   async function handleLogin() {
