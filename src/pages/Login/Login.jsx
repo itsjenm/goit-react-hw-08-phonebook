@@ -24,24 +24,11 @@ const Login = () => {
 
   async function handleLogin() {
     try {
-     
-      if (
-        user.email !== formData.email ||
-        user.password !== formData.password
-      ) {
-        setLoginError('Login failed! Please check your credentials.');
-        nav('/signup');
-        return;
-      }
-      else if (
-        user.email === formData.email &&
-        user.password === formData.password
-      ) {
-        await dispatch(loginUser(formData));
-        console.log('Login successful!');
-        nav('/');
-        return;
-      }
+      console.log('login-component', formData); 
+      await dispatch(loginUser(formData));
+      console.log('Login successful');
+      nav('/');
+      return;
     } catch (error) {
       console.error('Login error:', error);
       setLoginError('An error occurred during login.');

@@ -7,7 +7,7 @@ import { changeFilter } from 'redux/Contacts/filterSlice';
 import filterFunction from 'utils/filter';
 // import { useEffect } from 'react';
 import {
-  deleteContact
+  deleteContact, fetchContacts
 } from 'redux/Contacts/operators';
 // import { useGetContactsQuery, useDeleteContactMutation } from 'redux/Contacts/contactsApi';
 
@@ -22,12 +22,12 @@ const Phonebook = () => {
   // const [deleteContact] = useDeleteContactMutation();
 
   // useGetContactsQuery hook will automatically handle fetching the contacts data and updating the store. The useEffect block becomes unnecessary for fetching the data, and you can directly use the deleteContact mutation from the useDeleteContactMutation hook to handle contact deletion.
-  // useEffect(() => {
 
-  // }, []);
 
   function onDelete(id) {
-    dispatch(deleteContact(id));
+    dispatch(deleteContact(id)).then(() => {
+      dispatch(fetchContacts())
+    });
   }
 
   const filteredContacts = filterFunction(contacts, filter);

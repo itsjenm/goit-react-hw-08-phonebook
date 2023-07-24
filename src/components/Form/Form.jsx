@@ -9,59 +9,42 @@ import { addContact, fetchContacts } from 'redux/Contacts/operators';
 // form that handles adding contacts to  the phonebook
 
 const Form = () => {
+  const contacts = useSelector(getContacts);
   const [formData, setFormData] = useState({
     name: '',
     number: '',
   });
 
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-
- 
 
   // 2. Replace the fetchContacts action with the useGetContactsQuery hook
   // const { data: fetchedContacts } = useGetContactsQuery();
-// Replace the postContacts action with the useAddContactMutation hook
+  // Replace the postContacts action with the useAddContactMutation hook
   // const addContactMutation = useAddContactMutation();
 
   // function to handle form submission
   async function handleSubmit(e) {
     e.preventDefault();
 
-   
-    const isContactExist = contacts.some(
-      contact => contact.name === formData.name.toLowerCase()
-    );
-
-    const isNumberExist = contacts.some(
-      contact => contact.number === formData.number
-    );
-
-    if (isContactExist) {
-        alert(`${formData.name} is already in the contact list`);
-        return
-    } else if (isNumberExist) {
-        alert(`${formData.number} is already in the contact list`);
-        return
-    }
-
-    
     try {
-      await dispatch(addContact(formData)).then(() => {
-        dispatch(fetchContacts())
-        console.log("Contact added successfully");
-        console.log(contacts)
-      });
+      if (
+        contacts.some(
+          contact =>
+            contact.name.toLowerCase() === formData.name.toLocaleLowerCase()
+        )
+      ) {
+        return alert(`${formData.name} exists in your phonebook.`);
+      }
+      dispatch(addContact(formData));
+      alert(`${formData.name} has been added to your phonebook.`);
       setFormData({
         name: '',
         number: '',
       });
+      console.log(contacts)
     } catch (error) {
-      alert('Error adding contact. Please try again.');
+      alert('Error adding contact. Please try again');
     }
-
-    
-    
   }
 
   return (
@@ -92,8 +75,9 @@ const Form = () => {
         }
         required
       />
-      <Button variant="contained" type='submit'>Add Contact</Button>
-      
+      <Button variant="contained" type="submit"  sx={{ padding: '15px' }}>
+        Add Contact
+      </Button>
     </form>
   );
 };
