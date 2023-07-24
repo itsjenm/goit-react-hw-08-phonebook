@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material';
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { useAddContactMutation, useGetContactsQuery } from 'redux/Contacts/contactsApi';
 import { getContacts } from 'redux/Contacts/selectors';

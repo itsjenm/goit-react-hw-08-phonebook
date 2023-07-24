@@ -7,9 +7,7 @@ import { changeFilter } from 'redux/Contacts/filterSlice';
 import filterFunction from 'utils/filter';
 // import { useEffect } from 'react';
 import {
-  deleteContact,
-  fetchContacts,
-  addContact,
+  deleteContact
 } from 'redux/Contacts/operators';
 // import { useGetContactsQuery, useDeleteContactMutation } from 'redux/Contacts/contactsApi';
 
