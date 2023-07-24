@@ -17,12 +17,13 @@ axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 // };
 
 const setAuthHeader = token => {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
 const clearAuthHeader = () => {
-    axios.defaults.headers.common.Authorization = '';
+    axios.defaults.headers.common['Authorization'] = '';
 }
+
 
 
 export const signUpUser = createAsyncThunk('auth/signup', async (data) => {
@@ -33,6 +34,16 @@ export const signUpUser = createAsyncThunk('auth/signup', async (data) => {
     } catch (err) {
         // console.log(err)
        return err.message;
+    }
+});
+
+export const loginUser = createAsyncThunk('auth/login', async (data) => {
+    try {
+        const response = await axios.post('/users/login', data);
+        setAuthHeader(response.data.token)
+        return response.data;
+    } catch (err) {
+        return err.message;
     }
 });
 

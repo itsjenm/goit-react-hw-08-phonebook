@@ -8,9 +8,9 @@ import { signUpUser } from 'redux/Users/operators';
 const Signup = () => {
   // set the form state to empty strings
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
+    "name" : '',
+    "email": '',
+    "password" : '',
   });
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Signup = () => {
     // to call operator, after the user logs in, they should be navigated to main page
     try {
       await dispatch(signUpUser(formData))
-      nav('/');
+      nav('/login');
     
     } catch (error) {
       console.error('Error occurred during sign up: ', error)
