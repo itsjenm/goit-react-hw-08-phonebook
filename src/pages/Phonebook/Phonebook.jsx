@@ -7,7 +7,7 @@ import { changeFilter } from 'redux/Contacts/filterSlice';
 import filterFunction from 'utils/filter';
 // import { useEffect } from 'react';
 import {
-  deleteContact, fetchContacts
+  deleteContact
 } from 'redux/Contacts/operators';
 // import { useGetContactsQuery, useDeleteContactMutation } from 'redux/Contacts/contactsApi';
 
@@ -25,9 +25,7 @@ const Phonebook = () => {
 
 
   function onDelete(id) {
-    dispatch(deleteContact(id)).then(() => {
-      dispatch(fetchContacts())
-    });
+    dispatch(deleteContact(id));
   }
 
   const filteredContacts = filterFunction(contacts, filter);

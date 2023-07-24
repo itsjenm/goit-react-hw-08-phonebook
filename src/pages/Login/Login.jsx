@@ -3,10 +3,10 @@ import React from 'react';
 import { useState } from 'react';
 import styled from './Login.module.css';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser } from 'redux/Users/operators';
 import { useNavigate } from 'react-router-dom';
-import { getUser } from 'redux/Users/selectors';
+
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,10 +17,8 @@ const Login = () => {
     password: '',
   });
 
-  // const signedUp = useSelector(isLoggedIn);
-  const user = useSelector(getUser);
-  // eslint-disable-next-line
-  const [loginError, setLoginError] = useState('');
+
+  const [, setLoginError] = useState('');
 
   async function handleLogin() {
     try {

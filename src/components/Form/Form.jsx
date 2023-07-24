@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { useAddContactMutation, useGetContactsQuery } from 'redux/Contacts/contactsApi';
 import { getContacts } from 'redux/Contacts/selectors';
-import { addContact, fetchContacts } from 'redux/Contacts/operators';
+import { addContact } from 'redux/Contacts/operators';
 
 // form that handles adding contacts to  the phonebook
 
@@ -75,7 +75,7 @@ const Form = () => {
         }
         required
       />
-      <Button variant="contained" type="submit"  sx={{ padding: '15px' }}>
+      <Button variant="contained" type="submit" sx={{ padding: '15px' }}>
         Add Contact
       </Button>
     </form>
